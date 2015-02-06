@@ -1,2 +1,135 @@
 # Bus-353
-yes it is going to be a thing
+/*
+ * Seth Rathbun
+ * Bus 353
+ * Spring 2015
+ * Assignment 1
+ * "Stopwatch"
+ *
+ */
+
+Titanium.UI.setBackgroundColor('#000000');
+var win = Titanium.UI.createWindow({
+    title:"StopWatch",
+    backgroundColor:"#000000",
+    exitOnClose: true 
+});
+ 
+var StopwatchView = Titanium.UI.createView({
+    backgroundColor:"#000000"
+});
+  
+var timerLabel = Titanium.UI.createLabel({
+    text: "00:00:00.0",
+    top: 0,
+    textAlign:"center", 
+    font: { fontSize: 45, fontWeight: 'normal' }, 
+    width: 350,
+ 
+});
+ 
+var hourLabel = Titanium.UI.createLabel({
+    text: 'Hours',
+    top: 55,
+    left: 60,
+});
+ 
+var minuteLabel = Titanium.UI.createLabel({
+    text: 'Mins',
+    top: 55,
+    left: 125,
+});
+ 
+var secondLabel = Titanium.UI.createLabel({
+    text: 'Secs',
+    top: 55,
+    right: 105,
+});
+ 
+var Start = Titanium.UI.createButton({
+   title: 'START',
+   backgroundColor: '#335522',
+   top: 90,
+   left: 40,
+   width: 100,
+   height: 50 
+});
+ 
+var reset = Titanium.UI.createButton({
+    title:'RESET',
+    top: 90,
+    right: 40,
+    width: 100,
+    height: 50
+});
+ 
+var Stop = Titanium.UI.createButton({
+    title:'STOP',
+    backgroundColor: '#990000',
+    top: 150,
+    left: 40,
+    width: 100,
+    height: 50
+});
+
+var started = false;
+var intervalid = null;
+     
+var _startStopwatch = function() {
+ 
+	var startTime = new Date();
+ 
+	var _updateTimer = function updateTimer() {
+    	var UNIT_HOUR = 60 * 60 * 1000;
+    	var UNIT_MINUTE = 60 * 1000;
+    	var UNIT_SEC = 1000;
+    	var now = new Date();
+    	var difference = now.getTime() - startTime.getTime();
+    	var hour = Math.floor(difference / UNIT_HOUR);
+    	var minute = Math.floor((difference - hour * UNIT_HOUR) / UNIT_MINUTE);
+    	var second = Math.floor((difference - hour * UNIT_HOUR - minute * UNIT_MINUTE) / UNIT_SEC);
+    	var hsecond = Math.floor(difference % UNIT_SEC);
+    	timerLabel.text = ('0' + hour).slice(-2) + ':' + ('0' + minute).slice(-2) + ':' + ('0' + second).slice(-2) + '.' + ('00' + hsecond).slice(-1);
+    	};
+ 
+    intervalid = setInterval(_updateTimer, 0);
+    Stop.title = 'STOP';
+};
+ 
+var _stopStopwatch = function() {
+    started = false;
+    clearInterval(intervalid);
+};
+ 
+ 
+Start.addEventListener("click", function(x){
+    if (started === false && timerLabel.text === '00:00:00.0') {
+        _startStopwatch();
+        started = true;
+      } else if (started === false && timerLabel.text != '00:00:00.0'){
+      	alert ("Press RESET first");
+      }
+});
+ 
+reset.addEventListener("click", function(x){
+    if (started === false) {
+        timerLabel.text = '00:00:00.0';
+      } 
+});
+ 
+Stop.addEventListener("click", function(x){
+    if (started === true){    
+    _stopStopwatch();
+    }
+});
+ 
+win.add(StopwatchView);
+win.add(Start);
+win.add(reset);
+win.add(Stop);
+win.add(timerLabel);
+win.add(hourLabel);
+win.add(minuteLabel);
+win.add(secondLabel);
+ 
+win.open();
