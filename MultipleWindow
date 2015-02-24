@@ -1,0 +1,89 @@
+/*
+ * Tab Application
+ * Seth Rathbun
+ * Bus 353
+ * Spring 2015
+ * Dark Red and Grey theme with Helvetica Neue typeface Bold for headlines and normal for all else
+ * Vaguely reminiscient of WSU colors but a darker crimson color
+ */
+
+var Tabs = Titanium.UI.createTabGroup();
+
+var Win1 = Titanium.UI.createWindow({
+	title: 'Tab 1',
+	backgroundColor: '#7C0C0C'
+});
+
+var headlineView = Titanium.UI.createView({
+	height: 80,
+	top: 40,
+	backgroundColor: '#808080'
+});
+
+var headlineLabel = Titanium.UI.createLabel({
+	text: 'This is the Required Headline!',
+	color: 'black',
+	font: {fontSize: 20, fontFamily: 'Helvetica Neue', fontWeight: 'bold'},
+	textAlign: 'center'
+});
+
+var sublineView = Titanium.UI.createView({
+	height: 80,
+	width: 300,
+	top: 150,
+	backgroundColor: '#808080'
+});
+
+var sublineLabel = Titanium.UI.createLabel({
+	text: 'Those of us here at Required Headlines Inc. aim to provide simple, yet functional, headlines that get what we are trying to say to the customer.',
+	color: 'black',
+	font: {fontSize: 14, fontFamily: 'Helvetica Neue', fontWeight: 'normal'},
+	textAlign: 'left'
+});
+
+var Tab1 = Titanium.UI.createTab({
+	icon: 'tab1icon.png',
+	title: 'Tab 1',
+	window: Win1
+});
+
+var Win2 = Titanium.UI.createWindow({
+	title: 'Tab 2',
+	backgroundColor: '#7C0C0C',
+	fullscreen: 'true',
+	orientationModes: [Titanium.UI.PORTRAIT]
+});
+
+
+var otherView = Titanium.UI.createView({
+	height: 80,
+	top: 40,
+	backgroundColor: '#808080'
+});
+
+var otherLabel = Titanium.UI.createLabel({
+	text: 'Testing forced orientation',
+	color: 'black',
+	font: {fontSize: 20, fontFamily: 'Helvetica Neue', fontWeight: 'bold'},
+	textAlign: 'center'
+});
+
+var Tab2 = Titanium.UI.createTab({
+	icon: 'tab2icon.png',
+	title: 'Tab 2',
+	window: Win2
+});
+
+headlineView.add(headlineLabel);
+Win1.add(headlineView);
+
+sublineView.add(sublineLabel);
+Win1.add(sublineView);
+
+otherView.add(otherLabel);
+Win2.add(otherView);
+
+Tabs.addTab(Tab1);
+Tabs.addTab(Tab2);
+
+Tabs.open();
