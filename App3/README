@@ -1,3 +1,16 @@
+/************************************
+Benton Garrett: You're on the right track here. I made the following changes:
+
+1. Opened win1 on line 16
+2. On line 46, the chosen backgroundColor must be in ''
+3. In a couple spots, I had to change from the format of TI.UI.createTab (etcetera) to Ti.UI.createTab in order to run without errors
+4. Added teaVerdict.add(options); on line 118
+
+I was unable to get the colors and navigation tab to show up, but the app does open without errors with the above changes.
+
+Good job so far!
+************************************/
+
 Welcome to your Appcelerator Titanium Mobile Project
 
 This is a blank project.  Start by editing your application's app.js to 
